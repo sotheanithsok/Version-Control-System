@@ -8,17 +8,13 @@ export interface IMergeData {
 }
 export type IMergeDataState = IMergeData[]
 
-export enum IMergeDataActionType {
-    MERGE_IN = "MERGE_IN",
-    MERGE_OUT = "MERGE_OUT"
+export enum MergeDataActionType {
+    UPDATE_MERGEDATA = "UPDATE_MERGEDATA"
 }
-export interface IMergeInAction {
-    type: IMergeDataActionType.MERGE_IN,
-    mergeData: IMergeDataState
-}
-export interface IMergeOutAction {
-    type: IMergeDataActionType.MERGE_OUT,
+
+export interface IUpdateMergeDataAction {
+    type: MergeDataActionType.UPDATE_MERGEDATA,
     mergeData: IMergeDataState
 }
 
-export type IMergeDataActions = IMergeInAction|IMergeOutAction
+export type IMergeDataActions = IUpdateMergeDataAction
