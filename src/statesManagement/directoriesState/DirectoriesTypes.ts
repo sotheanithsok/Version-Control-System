@@ -13,10 +13,18 @@ export enum DirectoriesActionType {
 
 export interface IUpdateCurrentSourceDirectoryAction {
     type: DirectoriesActionType.UPDATE_CURRENT_SOURCE_DIRECTORY;
-    payload: IDirectoriesState
+    payload: {
+        currentSourceDirectory:string,
+        pastSourceDirectories:string[]
+    }
 }
 
 export interface IUpdateCurrentTargetDirectoryAction {
-    type: DirectoriesActionType.UPDATE_CURRENT_SOURCE_DIRECTORY;
-    payload: IDirectoriesState
+    type: DirectoriesActionType.UPDATE_CURRENT_TARGET_DIRECTORY;
+    payload: {
+        currentTargetDirectory:string,
+        pastTargetDirectories:string[]
+    }
 }
+
+export type IDirectoriesActions= IUpdateCurrentSourceDirectoryAction| IUpdateCurrentTargetDirectoryAction
