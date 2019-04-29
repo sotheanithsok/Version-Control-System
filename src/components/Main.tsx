@@ -1,9 +1,10 @@
 import React, { FunctionComponent } from 'react'
+import TestButton from './TestButton';
 
 const Main: FunctionComponent = props => {
     return (
     <div>
-        <label>This is the main component</label>
+        <TestButton></TestButton>
     </div>)
 }
 
