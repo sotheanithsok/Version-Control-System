@@ -9,10 +9,10 @@ const instance = Axios.create({
 })
 
 
-export const getAllManifests = (sourceDirectory: string) => {
+export const getAllManifests = () => {
     return (dispatch: Dispatch<IManifestUpdateAction>, getState: Function) => {
         instance.post('/get/manifests', {
-            sourceDirectory: sourceDirectory
+            sourceDirectory: getState().directoriesState.currentSourceDirectory
         }).then(response => {
             if (response.status === 200) {
                 dispatch({
@@ -31,13 +31,13 @@ export const getAllManifests = (sourceDirectory: string) => {
     }
 }
 
-export const commit = (sourceDirectory: string) => {
+export const commit = () => {
     return (dispatch: Dispatch, getState: Function) => {
         instance.post('/commit', {
-            sourceDirectory: sourceDirectory
+            sourceDirectory: getState().directoriesState.currentSourceDirectory
         }).then(response => {
             if (response.status === 200) {
-                getAllManifests(sourceDirectory)(dispatch, getState);
+                getAllManifests()(dispatch, getState);
             }
         }).catch(err => {
             console.log(err);
@@ -46,14 +46,14 @@ export const commit = (sourceDirectory: string) => {
     }
 }
 
-export const checkin = (sourceDirectory: string, targetDirectory: string) => {
+export const checkin = () => {
     return (dispatch: Dispatch, getState: Function) => {
         instance.post('/checkin', {
-            sourceDirectory: sourceDirectory,
-            targetDirectory: targetDirectory
+            sourceDirectory: getState().directoriesState.currentSourceDirectory,
+            targetDirectory: getState().directoriesState.currentTargetDirectory
         }).then(response => {
             if (response.status === 200) {
-                getAllManifests(sourceDirectory)(dispatch, getState);
+                getAllManifests()(dispatch, getState);
             }
         }).catch(err => {
             console.log(err)
@@ -61,14 +61,14 @@ export const checkin = (sourceDirectory: string, targetDirectory: string) => {
     }
 }
 
-export const checkout = (sourceDirectory: string, targetDirectory: string) => {
+export const checkout = () => {
     return (dispatch: Dispatch, getState: Function) => {
         instance.post('/checkout', {
-            sourceDirectory: sourceDirectory,
-            targetDirectory: targetDirectory
+            sourceDirectory: getState().directoriesState.currentSourceDirectory,
+            targetDirectory: getState().directoriesState.currentTargetDirectory
         }).then(response => {
             if (response.status === 200) {
-                getAllManifests(sourceDirectory)(dispatch, getState);
+                getAllManifests()(dispatch, getState);
             }
         }).catch(err => {
             console.log(err)
@@ -76,16 +76,16 @@ export const checkout = (sourceDirectory: string, targetDirectory: string) => {
     }
 }
 
-export const updateLabel = (sourceDirectory: string, id: string, value: string | string[]) => {
+export const updateLabel = ( id: string, value: string | string[]) => {
     return (dispatch: Dispatch, getState: Function) => {
         instance.post('/update', {
-            sourceDirectory: sourceDirectory,
+            sourceDirectory: getState().directoriesState.currentSourceDirectory,
             id: id,
             field: "tag",
             value: value
         }).then(response => {
             if (response.status === 200) {
-                getAllManifests(sourceDirectory)(dispatch, getState);
+                getAllManifests()(dispatch, getState);
             }
         }).catch(err => {
             console.log(err)

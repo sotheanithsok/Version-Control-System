@@ -1,26 +1,34 @@
-import React, { FunctionComponent } from "react"
-import { connect } from "react-redux";
-import { getAllManifests, commit } from "../statesManagement/manifestsState/ManifestsActions";
+import React, { FunctionComponent, useRef, createRef } from "react"
 import { Button } from "@material-ui/core";
+import MergeModal, { MergeModalHandle } from "./MergeModal";
 import { IStoreStates } from "../statesManagement/Store";
+import { connect } from "react-redux";
+import { updateCurrentSourceDirectory } from "../statesManagement/directoriesState/DirectoriesActions";
 
 const TestButton: FunctionComponent = (props: any) => {
+    const mergeModalRef = useRef<any>(null);
 
     return (<div>
+        <MergeModal innerRef={mergeModalRef} value={123}></MergeModal>
         <Button variant="contained" onClick={() => {
-            props.commit("C:\\Users\\Sotheanith Sok\\Desktop\\Test");
+            if (mergeModalRef.current) {
+                mergeModalRef.current.showModal();
+            }
         }}> BUTTON DOES SOMETHING</Button>
-        <pre>{JSON.stringify(props.manifests, null, 2)}</pre>
+        <Button onClick={() => {
+            props.updateCurrentSourceDirectory("Hi");
+        }}>Click me</Button>
+        <pre>{JSON.stringify(props.directoriesState, null, 2)}</pre>
+
     </div>)
 }
 
-const mapStatesToProp = (store: IStoreStates) => {
+const mapStateToProps = (store: IStoreStates) => {
     return {
-        manifests: store.manifestsState
+        directoriesState: store.directoriesState
     }
 }
 
-export default connect(mapStatesToProp, {
-    getAllManifests: getAllManifests,
-    commit:commit
+export default connect(mapStateToProps, {
+    updateCurrentSourceDirectory: updateCurrentSourceDirectory
 })(TestButton)
