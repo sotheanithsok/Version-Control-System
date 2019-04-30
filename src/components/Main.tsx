@@ -1,11 +1,47 @@
 import React, { FunctionComponent } from 'react'
 import TestButton from './TestButton';
+import HeaderBar from './HeaderBar'
+import ManiItem from './ManiItem'
+import ManiList from './ManiList'
+import { any } from 'prop-types';
+import { getAllManifests, commit } from "../statesManagement/manifestsState/ManifestsActions";
+import { IStoreStates } from "../statesManagement/Store";
+import { connect } from "react-redux";
 
-const Main: FunctionComponent = props => {
-    return (
-    <div>
-        <TestButton></TestButton>
-    </div>)
+
+class Main extends React.Component<any, any>
+{
+    constructor(props: any) {
+        super(props);
+        this.state =
+        {
+            DirectoryField: '',
+        };
+        
+    }
+ 
+
+    inputField= (DirectoryField: any) => {
+        this.setState({DirectoryField:DirectoryField})
+    }
+
+    render() {
+        return (
+            <div>
+                <HeaderBar  getInputField = {this.inputField}></HeaderBar>
+                <ManiList maniDirectory = {this.state.DirectoryField}></ManiList>
+
+            </div>)
+    }
 }
 
-export default Main
+const mapStatesToProp = (store: IStoreStates) => {
+    return {
+        manifests: store.manifestsState
+    }
+}
+
+export default connect(mapStatesToProp, {
+    getAllManifests: getAllManifests,
+    commit:commit
+})(Main)
