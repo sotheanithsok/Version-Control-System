@@ -14,6 +14,7 @@ class ManiItem extends React.Component <any, any>
     render()
     {
         return(
+            
             <li>
                 {this.state.typeLabel}
             </li>

@@ -11,13 +11,9 @@ const TestButton: FunctionComponent = (props: any) => {
     return (<div>
         <MergeModal innerRef={mergeModalRef} value={123}></MergeModal>
         <Button variant="contained" onClick={() => {
-<<<<<<< Updated upstream
             if (mergeModalRef.current) {
                 mergeModalRef.current.showModal();
             }
-=======
-            props.commit('/home/yash94/Desktop/tester');
->>>>>>> Stashed changes
         }}> BUTTON DOES SOMETHING</Button>
         <Button onClick={() => {
             props.updateCurrentSourceDirectory("Hi");

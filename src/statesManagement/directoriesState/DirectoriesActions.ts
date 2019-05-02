@@ -18,7 +18,7 @@ export const updateCurrentSourceDirectory = (newSourceDirectory: string) => {
                     })
                 }
             })
-
+         
             getAllManifests()(dispatch, getState);
         }
 

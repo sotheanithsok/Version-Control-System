@@ -29,10 +29,6 @@ const store: Store<IStoreStates, any> = createStore(
     rootReducer,
     compose(
         applyMiddleware(...middleware)
-<<<<<<< Updated upstream
-=======
-        //(window as any).__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ && (window as any).__REDUX_DEVTOOLS_EXTENSION__()
->>>>>>> Stashed changes
     )
 )
 

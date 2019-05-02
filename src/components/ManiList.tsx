@@ -21,32 +21,20 @@ const styles = (theme: { palette: { background: { paper: any; }; }; }) => ({
 class ManiList extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
-        this.state = {
-            manifest:[],
-            DirectoryField: this.props.maniDirectory,
-        };
+
     }
 
-    const mapStatesToProp = (store: IStoreStates) => {
-        return {
-            manifests: store.manifestsState
-        }
-    }
     
 
-
     render() {
-        this.setState(this.props.getManifests)
+   
+     
         const { classes } = this.props;
-        let elements = this.state.manifest.map((element: { id: string | number | undefined; tag: number; }) => {
-            return (
-                <li key={element.id}>
-                    {element.tag}
-                </li>)
-        })
+
+    
         return (
             <List className={classes.root}>
-                {elements}
+                
             </List>
 
         );

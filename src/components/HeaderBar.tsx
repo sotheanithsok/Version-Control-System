@@ -10,9 +10,10 @@ import transitions from '@material-ui/core/styles/transitions';
 import shape from '@material-ui/core/styles/shape';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 import { TextField } from '@material-ui/core';
-
-
-
+import { IStoreStates } from "../statesManagement/Store";
+import { connect } from "react-redux";
+import { updateCurrentSourceDirectory } from "../statesManagement/directoriesState/DirectoriesActions";
+import ManiList from './ManiList'
 
 
     
@@ -70,9 +71,18 @@ class HeaderBar extends React.Component<any, any>{
         this.setState({
             textField: event.target.value,
         })
-        this.props.getInputField(this.state.textField);
-        
     }
+
+    handleKeyDown(event: React.KeyboardEvent<any>)
+    {
+        if(event.keyCode === 13)
+        {
+            this.props.updateCurrentSourceDirectory(this.state.textField);
+            
+        }
+    }
+
+
     render() {
         return (
             <div style= {root}>
@@ -91,10 +101,13 @@ class HeaderBar extends React.Component<any, any>{
                                 placeholder={this.state.placeHolder}
                                 style = {inputInput}
                                 onChange={event => { this.handleChange(event) }}
+                                onKeyDown = {event => {this.handleKeyDown(event)}}
                             />
                         </div>
                     </Toolbar>
                 </AppBar>
+                
+
             </div>
         );
 
@@ -109,5 +122,13 @@ class HeaderBar extends React.Component<any, any>{
 
 
 
+const mapStateToProps = (store: IStoreStates) => {
+    return {
+        directoriesState: store.directoriesState
+    }
+}
 
-export default HeaderBar;
+
+export default connect(mapStateToProps, {
+    updateCurrentSourceDirectory: updateCurrentSourceDirectory
+})(HeaderBar);
