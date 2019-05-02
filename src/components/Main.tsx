@@ -6,6 +6,7 @@ import HeaderBar from './HeaderBar'
 import ManiItem from './ManiItem'
 import ManiList from './ManiList'
 import ArtifList from './ArtifList'
+import AddButton from './AddButton';
 import { any } from 'prop-types';
 import { Button } from '@material-ui/core'
 import MergeModal, { MergeModalHandle } from "./MergeModal";
@@ -30,7 +31,8 @@ class Main extends React.Component<any, any>
             <div>
                 <HeaderBar></HeaderBar>
                 <ManiList/> 
-                <ArtifList/>    
+                <ArtifList/> 
+                <AddButton/>   
             </div>)
     }
 }
