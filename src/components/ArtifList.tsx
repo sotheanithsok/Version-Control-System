@@ -8,8 +8,7 @@ import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import InboxIcon from "@material-ui/icons/MoveToInbox";
-import MailIcon from "@material-ui/icons/Mail";
+import FolderIcon from '@material-ui/icons/Folder';
 
 const styles = {
   list: {
@@ -45,7 +44,7 @@ class SwipeableTemporaryDrawer extends React.Component<any, any> {
             (text, index) => (
               <ListItem button key={text}>
                 <ListItemIcon>
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  {index % 2 === 0 ? <FolderIcon /> : <FolderIcon />}
                 </ListItemIcon>
                 <ListItemText primary={text} />
               </ListItem>
