@@ -1,14 +1,11 @@
-import React, { FunctionComponent, useRef, createRef } from 'react'
-import TestButton from './TestButton';
+import React, {  } from 'react'
 import HeaderBar from './HeaderBar'
-import ManiItem from './ManiItem'
 import ManiList from './ManiList'
-import { any } from 'prop-types';
-import { Button } from '@material-ui/core'
-import MergeModal, { MergeModalHandle } from "./MergeModal";
 import { getAllManifests, commit } from "../statesManagement/manifestsState/ManifestsActions";
 import { IStoreStates } from "../statesManagement/Store";
 import { connect } from "react-redux";
+
+
 
 
 class Main extends React.Component<any, any>
@@ -23,10 +20,12 @@ class Main extends React.Component<any, any>
         return (
             <div>
                 <HeaderBar></HeaderBar>
-                <ManiList/>     
+                <ManiList/> 
+                  
             </div>)
     }
 }
+
 
 const mapStatesToProp = (store: IStoreStates) => {
     return {
