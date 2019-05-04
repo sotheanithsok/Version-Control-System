@@ -21,7 +21,10 @@ const styles = (theme: { palette: { background: { paper: any; }; }; }) => ({
 class ManiList extends React.Component<any, any> {
     constructor(props: any) {
         super(props);
-
+        this.state =
+        {
+            side: null,
+        }
     }
 
     
