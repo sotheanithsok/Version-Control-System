@@ -1,18 +1,18 @@
 import React from 'react';
-import ManiItem from './ManiItem'
 import { withStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItemText from '@material-ui/core/ListItemText';
 import { IStoreStates } from '../statesManagement/Store';
 import { connect } from 'react-redux';
-import { getAllManifests } from '../statesManagement/manifestsState/ManifestsActions';
+import { updateLabel } from '../statesManagement/manifestsState/ManifestsActions';
 
 import SwipeableDrawer from "@material-ui/core/SwipeableDrawer";
-import Button from "@material-ui/core/Button";
 import Divider from "@material-ui/core/Divider";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import FolderIcon from '@material-ui/icons/Folder';
+import spacing from '@material-ui/core/styles/spacing';
+
 
 
 
@@ -23,7 +23,7 @@ const styles = (theme: { palette: { background: { paper: any; }; }; }) => ({
         backgroundColor: theme.palette.background.paper,
     },
     list: {
-        width: 250
+        width: spacing.unit *75
     },
     fullList: {
         width: "auto"
@@ -37,6 +37,7 @@ class ManiList extends React.Component<any, any> {
         this.state =
             {
                 side: null,
+                artifacts: []
             }
     }
 
@@ -46,29 +47,69 @@ class ManiList extends React.Component<any, any> {
         });
     };
 
-    openArtList(even:any)
-    {
-
-    }
-
+  
 
 
     render() {
 
         const manifests = this.props.manifestState
+
         const { classes } = this.props;
-
         let manifestList = manifests.map((element: any) => {
-            if(element.tag ===null)
-                return (<ListItem button >{element.id}</ListItem>)
-            else
-                return (<ListItem button >{element.tag}</ListItem>)
-        });
-        return (
 
-            <List className={classes.root} >
-                {manifestList}
-            </List>
+            if (element.tag === null)
+                return (<ListItem button key={element.id} onClick={this.toggleDrawer("right", true)}>{element.id}</ListItem>)
+            else
+                return (<ListItem button key={element.id} onClick={this.toggleDrawer("right", true)}>{element.tag}</ListItem>)
+
+        });
+
+        const sideList = (
+            <div className={classes.list}>
+              <List>
+                {this.props.manifestState.map
+                  (
+                    (element: any, index:any) =>
+                      (
+                        <ListItem button key={element.id}>
+                          <ListItemIcon>
+                            {index % 2 === 0 ? <FolderIcon /> : <FolderIcon />}
+                          </ListItemIcon>
+                          <ListItemText primary={element.values} />
+                        </ListItem>
+                      )
+                  )
+                },
+                
+              </List>
+              <Divider />
+              
+            </div>
+          );
+
+
+        return (
+            <div>
+                <List className={classes.root} >
+                    {manifestList}
+                </List>
+                <SwipeableDrawer 
+                anchor="right"
+                open={this.state.right}
+                onClose={this.toggleDrawer("right", false)}
+                onOpen={this.toggleDrawer("right", true)}
+                >
+                    <div
+                        tabIndex={0}
+                        role="button"
+                        onClick={this.toggleDrawer("right", false)}
+                        onKeyDown={this.toggleDrawer("right", false)}
+                    >
+                    {sideList}
+                     </div>
+
+        </SwipeableDrawer>
+            </div>
 
         );
     }
@@ -81,4 +122,5 @@ const mapStateToProps = (store: IStoreStates) => {
 }
 
 export default connect(mapStateToProps, {
+    updateLabel: updateLabel,
 })(withStyles(styles)(ManiList));
