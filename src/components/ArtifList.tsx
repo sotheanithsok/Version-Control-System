@@ -9,6 +9,8 @@ import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
 import FolderIcon from '@material-ui/icons/Folder';
+import { IStoreStates } from '../statesManagement/Store';
+import { connect } from 'react-redux';
 
 const styles = {
   list: {
@@ -27,29 +29,31 @@ class SwipeableTemporaryDrawer extends React.Component<any, any> {
     right: false
   };
 
-  toggleDrawer = (side:any, open: any) => () => {
+  toggleDrawer = (side: any, open: any) => () => {
     this.setState({
       [side]: open
     });
   };
 
   render() {
-
-    const {classes} = this.props;
+    const { classes } = this.props;
 
     const sideList = (
       <div className={classes.list}>
         <List>
-          {["Artifact1", "Artifact2", "Artifact3", "Artifact4"].map(
-            (text, index) => (
-              <ListItem button key={text}>
-                <ListItemIcon>
-                  {index % 2 === 0 ? <FolderIcon /> : <FolderIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
+          {this.props.manifestState.map
+            (
+              (element: any, index:any) =>
+                (
+                  <ListItem button key={element.id}>
+                    <ListItemIcon>
+                      {index % 2 === 0 ? <FolderIcon /> : <FolderIcon />}
+                    </ListItemIcon>
+                    <ListItemText primary={element.id} />
+                  </ListItem>
+                )
             )
-          )}
+          }
         </List>
         <Divider />
       </div>
@@ -83,4 +87,12 @@ class SwipeableTemporaryDrawer extends React.Component<any, any> {
 
 
 
-export default withStyles(styles)(SwipeableTemporaryDrawer);
+
+const mapStateToProps = (store: IStoreStates) => {
+  return {
+    manifestState: store.manifestsState
+  }
+}
+
+export default connect(mapStateToProps, {
+})(withStyles(styles)(SwipeableTemporaryDrawer));
