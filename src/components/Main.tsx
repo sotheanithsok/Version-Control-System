@@ -1,11 +1,39 @@
-import React, { FunctionComponent } from 'react'
-import TestButton from './TestButton';
+import React, {  } from 'react'
+import HeaderBar from './HeaderBar'
+import ManiList from './ManiList'
+import { getAllManifests, commit } from "../statesManagement/manifestsState/ManifestsActions";
+import { IStoreStates } from "../statesManagement/Store";
+import { connect } from "react-redux";
 
-const Main: FunctionComponent = props => {
-    return (
-    <div>
-        <TestButton></TestButton>
-    </div>)
+
+
+
+class Main extends React.Component<any, any>
+{
+    constructor(props: any) {
+        super(props);
+
+    }
+
+
+    render() {
+        return (
+            <div>
+                <HeaderBar></HeaderBar>
+                <ManiList/> 
+                  
+            </div>)
+    }
 }
 
-export default Main
+
+const mapStatesToProp = (store: IStoreStates) => {
+    return {
+        manifests: store.manifestsState
+    }
+}
+
+export default connect(mapStatesToProp, {
+    getAllManifests: getAllManifests,
+    commit: commit
+})(Main)

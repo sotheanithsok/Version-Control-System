@@ -7,7 +7,7 @@ import store from './statesManagement/Store';
 
 const App: React.FC = () => {
   return (
-    <div className="App">
+    <div className = "App">
       <Provider store={store}>
         <Router>
           <Switch>
