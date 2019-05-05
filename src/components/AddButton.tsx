@@ -1,10 +1,9 @@
-<<<<<<< Updated upstream
+
 import React from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
-import { Modal, Button, List, Popover } from '@material-ui/core';
+import {  Button, List, Popover } from '@material-ui/core';
 import { IStoreStates } from '../statesManagement/Store';
 import { connect } from 'react-redux';
 import { commit, checkin, checkout } from '../statesManagement/manifestsState/ManifestsActions';
@@ -16,20 +15,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
 import { updateCurrentTargetDirectory } from '../statesManagement/directoriesState/DirectoriesActions';
-=======
-import React, { FunctionComponent, useRef, createRef } from "react"
-import PropTypes, { any } from "prop-types";
-import { withStyles } from "@material-ui/core/styles";
-import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
-import { Modal, Button, List, Popover } from '@material-ui/core';
-import { IStoreStates } from '../statesManagement/Store';
-import { connect } from 'react-redux'
-import { commit, checkin, checkout } from "../statesManagement/manifestsState/ManifestsActions";
-import { mergeIn, mergeOut } from "../statesManagement/mergeDataState/MergeDataActions";
-import MergeModal from "../components/MergeModal"
 
->>>>>>> Stashed changes
 
 const styles = (theme: any) => ({
 	fab: {
@@ -49,7 +35,6 @@ const styles = (theme: any) => ({
 });
 
 class FloatingActionButtons extends React.Component<any, any> {
-<<<<<<< Updated upstream
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -214,85 +199,5 @@ export default connect(mapStateToProps, {
 	mergein: mergeIn,
 	mergeout: mergeOut,
 	updateCurrentTargetDirectory: updateCurrentTargetDirectory
-=======
-  constructor(props: any) {
-    super(props);
-    this.state = ({
-      open: false,
-      anchoreEl: null,
-    });
-  }
 
-
-  handleClick = (event: any) => {
-    this.setState({
-      anchorEl: event.currentTarget,
-    });
-  };
-
-  handleClose = () => {
-    this.setState({ anchorEl: null, });
-  };
-
-  
-  render() {
-    const { classes } = this.props;
-    const { anchorEl } = this.state;
-    const open = Boolean(anchorEl);
-
-
-    return (
-      <div>
-
-        <Fab color="secondary" aria-label="Add" className={classes.fab} onClick={this.handleClick}>
-          <AddIcon />
-        </Fab>
-        <Popover
-          id="simple-popper"
-          open={open}
-          anchorEl={anchorEl}
-          onClose={this.handleClose}
-          anchorOrigin={{
-            vertical: 'bottom',
-            horizontal: 'center',
-          }}
-          transformOrigin={{
-            vertical: 'top',
-            horizontal: 'center',
-          }}
-        >
-          <div>
-            <List>
-              <Button onClick={this.props.commit}>Commit</Button>
-              <Button onClick={this.props.checkin}>CheckIn</Button>
-              <Button onClick={this.props.checkout}>CheckOut</Button>
-              <Button >MergeIn</Button>
-              <Button >MergeOut</Button>
-            </List>
-          </div>
-
-        </Popover>
-      </div >
-    );
-  }
-}
-
-const mapStateToProps = (store: IStoreStates) => {
-  return {
-    manifestState: store.manifestsState,
-    mergeDataState: store.mergeDataState,
-
-  }
-}
-
-
-export default connect(mapStateToProps, {
-  commit: commit,
-  checkin: checkin,
-  checkout: checkout,
-  mergein: mergeIn,
-  mergeout: mergeOut,
-
-
->>>>>>> Stashed changes
 })(withStyles(styles)(FloatingActionButtons));
