@@ -15,6 +15,12 @@ import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import Modal from '@material-ui/core/Modal';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
 
 // Project Modules
 import { IStoreStates } from '../statesManagement/Store';
@@ -37,6 +43,26 @@ const styles = (theme: any) => ({
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
 		outline: 'none' as 'none'
+	},
+
+	modal: {
+		position: 'absolute' as 'absolute',
+		outline: 'none' as 'none',
+		top: '50%',
+		left: '50%',
+		height: '80vh',
+		width: '80vw',
+		transform: 'translate(-50%,-50%)',
+		backgroundColor: theme.palette.background.paper,
+		boxShadow: theme.shadows[5]
+	},
+
+	ul: {
+		listStyle: 'none' as 'none'
+	},
+
+	formControl: {
+		margin: theme.spacing.unit * 3,
 	}
 });
 
@@ -46,11 +72,20 @@ class FloatingActionButtons extends React.Component<any, any> {
 
 		this.state = {
 			open: false,
+			modalOpen: false,
 			anchoreEl: null,
 			openTargetDirDialog: false,
 			action: '',
 			targetDir: ''
 		};
+	};
+
+	openModal = () => {
+		this.setState({ modalOpen: true });
+	};
+
+	closeModal = () => {
+		this.setState({ modalOpen: false });
 	};
 
 	handleClick = (event: any) => {
@@ -71,12 +106,38 @@ class FloatingActionButtons extends React.Component<any, any> {
 		this.setState({ openTargetDirDialog: false });
 	};
 
-	handleAction() {}
+	handleMergeSelectChange = (event: any) => {
+		console.log(this.props.mergeDataState);
+		this.props.mergeDataState[event.target.name].choice = event.target.value;
+	};
 
 	render() {
 		const { classes } = this.props;
 		const { anchorEl } = this.state;
 		const open = Boolean(anchorEl);
+
+		const mergeData = this.props.mergeDataState.map((item: any, key: any) => {
+			var file = item.source;
+			
+			if (file) {
+				return (
+					<li key={key}>
+						<FormControl className={classes.formControl}>
+							<FormLabel>{file.substring(0, file.lastIndexOf('/'))}</FormLabel>
+							<RadioGroup
+								name={key}
+								className={classes.group}
+								value={item.choice}
+								onChange={this.handleMergeSelectChange}>
+
+								<FormControlLabel value='Source' control={<Radio/>} label='Source'/>
+								<FormControlLabel value='Target' control={<Radio/>} label='Target'/>
+							</RadioGroup>
+						</FormControl>
+					</li>
+				);
+			}
+		});
 
 		return (
 			<div>
@@ -162,6 +223,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 											break;
 										case 'Merge':
 											this.props.mergeout();
+											this.openModal();
 
 											break;
 										default:
@@ -175,7 +237,22 @@ class FloatingActionButtons extends React.Component<any, any> {
 					</Dialog>
 				</Popover>
 
-				{this.props.mergeDataState}
+				<Modal 
+					open={this.state.modalOpen} 
+					onClose={this.closeModal}>
+					<div className={classes.modal}>
+						<ul className={classes.ul}>
+							{mergeData}
+						</ul>
+
+						<Button onClick={() => {
+							this.props.mergein(this.props.mergeDataState);
+							this.closeModal();
+						}}>
+							Merge
+						</Button>
+					</div>
+				</Modal>
 			</div>
 		);
 	}
