@@ -25,7 +25,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 // Project Modules
 import { IStoreStates } from '../statesManagement/Store';
 import { commit, checkin, checkout } from '../statesManagement/manifestsState/ManifestsActions';
-import { mergeIn, mergeOut } from '../statesManagement/mergeDataState/MergeDataActions';
+import { mergeIn, mergeOut, clearMergeData } from '../statesManagement/mergeDataState/MergeDataActions';
 import { updateCurrentTargetDirectory } from '../statesManagement/directoriesState/DirectoriesActions';
 
 
@@ -88,6 +88,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 
 	closeModal = () => {
 		this.setState({ modalOpen: false });
+		this.props.clearMergeData()
 	};
 
 	handleClick = (event: any) => {
@@ -274,5 +275,6 @@ export default connect(mapStateToProps, {
 	checkout: checkout,
 	mergein: mergeIn,
 	mergeout: mergeOut,
-	updateCurrentTargetDirectory: updateCurrentTargetDirectory
+	updateCurrentTargetDirectory: updateCurrentTargetDirectory,
+	clearMergeData:clearMergeData
 })(withStyles(styles)(FloatingActionButtons));
