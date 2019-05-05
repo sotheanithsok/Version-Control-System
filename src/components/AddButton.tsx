@@ -229,7 +229,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 											setTimeout(()=>{
 												this.setState({...this.state, mergeDate:this.props.mergeDataState})
 												this.openModal();
-											},500)
+											},1000)
 											
 
 											break;
