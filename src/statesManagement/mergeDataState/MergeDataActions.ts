@@ -6,13 +6,13 @@ const instance = Axios.create({
 	baseURL: 'http://localhost:3001/',
 	timeout: 10000
 });
-export const mergeIn = (mergeData:IMergeDataState) => {
+export const mergeIn = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		instance
 			.post('/mergein', {
 				sourceDirectory: getState().directoriesState.currentSourceDirectory,
 				targetDirectory: getState().directoriesState.currentTargetDirectory,
-				mergeData: mergeData
+				mergeData: getState().mergeData
 			})
 			.then((response) => {
 				if (response.status === 200) {
@@ -50,3 +50,15 @@ export const mergeOut = () => {
 			});
 	};
 };
+export const updateMergeData = (index: number, choice:string)=>{
+	return (dispatch:Dispatch, getState:Function)=>{
+		let k = [getState().mergeData]
+		k[index].choice=choice
+		dispatch({
+			type: MergeDataActionType.UPDATE_MERGEDATA,
+			mergeData: k
+		});
+
+		console.log(getState().mergeData)
+	}
+}
