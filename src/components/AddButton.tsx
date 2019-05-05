@@ -125,15 +125,15 @@ class FloatingActionButtons extends React.Component<any, any> {
 				return (
 					<li key={key}>
 						<FormControl className={classes.formControl}>
-							<FormLabel>{file.substring(0, file.lastIndexOf('/'))}</FormLabel>
+							<FormLabel>MergeType: {item.mergeType} - {file.substring(0, file.lastIndexOf('/'))}</FormLabel>
 							<RadioGroup
 								name={key}
 								className={classes.group}
 								value={item.choice}
 								onChange={this.handleMergeSelectChange}>
 
-								<FormControlLabel value='Source' control={<Radio />} label='Source' />
-								<FormControlLabel value='Target' control={<Radio />} label='Target' />
+								<FormControlLabel value='Source' disabled={item.choice==="Target"} control={<Radio />} label='Source' />
+								<FormControlLabel value='Target' disabled={item.choice==="Source"} control={<Radio />} label='Target' />
 							</RadioGroup>
 						</FormControl>
 					</li>
