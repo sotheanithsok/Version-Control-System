@@ -7,25 +7,25 @@ const instance = Axios.create({
 	timeout: 10000
 });
 export const mergeIn = (mergeData:IMergeDataState) => {
-    return (dispatch: Dispatch, getState: Function) => {
-        instance
-            .post('/mergein', {
-                sourceDirectory: getState().directoriesState.currentSourceDirectory,
-                targetDirectory: getState().directoriesState.currentTargetDirectory,
-                mergeData: mergeData
-            })
-            .then((response) => {
-                if (response.status === 200) {
-                    dispatch({
-                        type: MergeDataActionType.UPDATE_MERGEDATA,
-                        mergeData: []
-                    });
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    };
+	return (dispatch: Dispatch, getState: Function) => {
+		instance
+			.post('/mergein', {
+				sourceDirectory: getState().directoriesState.currentSourceDirectory,
+				targetDirectory: getState().directoriesState.currentTargetDirectory,
+				mergeData: mergeData
+			})
+			.then((response) => {
+				if (response.status === 200) {
+					dispatch({
+						type: MergeDataActionType.UPDATE_MERGEDATA,
+						mergeData: []
+					});
+				}
+			})
+			.catch((err) => {
+				console.log(err);
+			});
+	};
 };
 
 export const mergeOut = () => {
