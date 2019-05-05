@@ -6,9 +6,6 @@ import { IStoreStates } from '../statesManagement/Store';
 import { connect } from 'react-redux';
 
 class Main extends React.Component<any, any> {
-	constructor(props: any) {
-		super(props);
-	}
 
 	render() {
 		return (

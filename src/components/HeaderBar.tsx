@@ -12,7 +12,6 @@ import { IStoreStates } from '../statesManagement/Store';
 import { connect } from 'react-redux';
 import { updateCurrentSourceDirectory } from '../statesManagement/directoriesState/DirectoriesActions';
 import AddButton from './AddButton';
-import { commit, checkin } from '../statesManagement/manifestsState/ManifestsActions';
 
 const root = {
 	flexGrow: 1
