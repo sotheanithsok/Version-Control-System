@@ -1,18 +1,31 @@
+// React Project
 import React from 'react';
-import { withStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import {  Button, List, Popover } from '@material-ui/core';
-import { IStoreStates } from '../statesManagement/Store';
 import { connect } from 'react-redux';
-import { commit, checkin, checkout } from '../statesManagement/manifestsState/ManifestsActions';
-import { mergeIn, mergeOut } from '../statesManagement/mergeDataState/MergeDataActions';
+
+// Material-ui Modules
+import { withStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import Popover from '@material-ui/core/Popover';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+import Modal from '@material-ui/core/Modal';
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormControl from '@material-ui/core/FormControl';
+import Radio from '@material-ui/core/Radio';
+import RadioGroup from '@material-ui/core/RadioGroup';
+
+// Project Modules
+import { IStoreStates } from '../statesManagement/Store';
+import { commit, checkin, checkout } from '../statesManagement/manifestsState/ManifestsActions';
+import { mergeIn, mergeOut, updateMergeData } from '../statesManagement/mergeDataState/MergeDataActions';
 import { updateCurrentTargetDirectory } from '../statesManagement/directoriesState/DirectoriesActions';
 
 
@@ -23,6 +36,7 @@ const styles = (theme: any) => ({
 		bottom: theme.spacing.unit,
 		right: theme.spacing.unit * 5
 	},
+
 	paper: {
 		position: '-webkit-sticky' as '-webkit-sticky',
 		width: theme.spacing.unit * 50,
@@ -30,20 +44,51 @@ const styles = (theme: any) => ({
 		backgroundColor: theme.palette.background.paper,
 		boxShadow: theme.shadows[5],
 		outline: 'none' as 'none'
+	},
+
+	modal: {
+		position: 'absolute' as 'absolute',
+		outline: 'none' as 'none',
+		top: '50%',
+		left: '50%',
+		height: '80vh',
+		width: '80vw',
+		transform: 'translate(-50%,-50%)',
+		backgroundColor: theme.palette.background.paper,
+		boxShadow: theme.shadows[5]
+	},
+
+	ul: {
+		listStyle: 'none' as 'none'
+	},
+
+	formControl: {
+		margin: theme.spacing.unit * 3,
 	}
 });
 
 class FloatingActionButtons extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
+
 		this.state = {
 			open: false,
+			modalOpen: false,
 			anchoreEl: null,
 			openTargetDirDialog: false,
 			action: '',
-			targetDir: ''
+			targetDir: '',
+			mergeDate: []
 		};
-	}
+	};
+
+	openModal = () => {
+		this.setState({ modalOpen: true });
+	};
+
+	closeModal = () => {
+		this.setState({ modalOpen: false });
+	};
 
 	handleClick = (event: any) => {
 		this.setState({
@@ -63,19 +108,51 @@ class FloatingActionButtons extends React.Component<any, any> {
 		this.setState({ openTargetDirDialog: false });
 	};
 
-	handleAction() {}
+	handleMergeSelectChange = (event: any) => {
+		console.log('I want change')
+		this.props.updateMergeData(event.target.name,event.target.value);
+		//this.props.mergeDataState[event.target.name].choice = event.target.value;
+	};
 
 	render() {
 		const { classes } = this.props;
 		const { anchorEl } = this.state;
 		const open = Boolean(anchorEl);
+
+		const mergeData = this.state.mergeDate.map((item: any, key: any) => {
+			var file = item.source;
+			
+			if (file) {
+				return (
+					<li key={key}>
+						<FormControl className={classes.formControl}>
+							<FormLabel>{file.substring(0, file.lastIndexOf('/'))}</FormLabel>
+							<RadioGroup
+								name={key}
+								className={classes.group}
+								value={item.choice}
+								onChange={this.handleMergeSelectChange}>
+
+								<FormControlLabel value='Source' control={<Radio/>} label='Source'/>
+								<FormControlLabel value='Target' control={<Radio/>} label='Target'/>
+							</RadioGroup>
+						</FormControl>
+					</li>
+				);
+			}
+		});
+
 		return (
 			<div>
-				<Fab color="secondary" aria-label="Add" className={classes.fab} onClick={this.handleClick}>
-					<AddIcon />
+				<Fab 
+					color='secondary' 
+					className={classes.fab} 
+					onClick={this.handleClick}>
+					<AddIcon/>
 				</Fab>
+
 				<Popover
-					id="simple-popper"
+					id='simple-popper'
 					open={open}
 					anchorEl={anchorEl}
 					onClose={this.handleClose}
@@ -86,8 +163,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 					transformOrigin={{
 						vertical: 'top',
 						horizontal: 'center'
-					}}
-				>
+					}}>
 					<div>
 						<List>
 							<Button onClick={this.props.commit}>Commit</Button>
@@ -95,33 +171,22 @@ class FloatingActionButtons extends React.Component<any, any> {
 								onClick={() => {
 									this.setState({ action: 'Checkin' });
 									this.handleClickOpenTargetDirDialog();
-								}}
-							>
+								}}>
 								CheckIn
 							</Button>
 							<Button
 								onClick={() => {
 									this.setState({ action: 'Checkout' });
 									this.handleClickOpenTargetDirDialog();
-								}}
-							>
+								}}>
 								CheckOut
 							</Button>
 							<Button
 								onClick={() => {
-									this.setState({ action: 'MergeIn' });
+									this.setState({ action: 'Merge' });
 									this.handleClickOpenTargetDirDialog();
-								}}
-							>
-								MergeIn
-							</Button>
-							<Button
-								onClick={() => {
-									this.setState({ action: 'MergeOut' });
-									this.handleClickOpenTargetDirDialog();
-								}}
-							>
-								MergeOut
+								}}>
+								Merge
 							</Button>
 						</List>
 					</div>
@@ -129,28 +194,27 @@ class FloatingActionButtons extends React.Component<any, any> {
 					<Dialog
 						open={this.state.openTargetDirDialog}
 						onClose={this.handleCloseTargetDirDialog}
-						aria-labelledby="form-dialog-title"
-					>
-						<DialogTitle id="form-dialog-title">{this.state.action}</DialogTitle>
+						aria-labelledby='form-dialog-title'>
+						<DialogTitle id='form-dialog-title'>{this.state.action}</DialogTitle>
 						<DialogContent>
 							<DialogContentText>Please enter a target directory to:</DialogContentText>
 							<TextField
 								autoFocus
-								margin="dense"
-								id="name"
-								label="Target Directory"
-								type="text"
+								margin='dense'
+								id='name'
+								label='Target Directory'
+								type='text'
 								fullWidth
 								onChange={(event) => {
 									this.setState({ targetDir: event.target.value });
-								}}
-							/>
+								}}/>
 						</DialogContent>
 						<DialogActions>
-							<Button onClick={this.handleCloseTargetDirDialog} color="primary">
+							<Button onClick={this.handleCloseTargetDirDialog} color='primary'>
 								Cancel
 							</Button>
 							<Button
+								color='primary'
 								onClick={(event) => {
 									this.props.updateCurrentTargetDirectory(this.state.targetDir);
 									switch (this.state.action) {
@@ -160,25 +224,42 @@ class FloatingActionButtons extends React.Component<any, any> {
 										case 'Checkout':
 											this.props.checkout();
 											break;
-										case 'MergeIn':
-											this.props.mergein();
-											break;
-										case 'MergeOut':
+										case 'Merge':
 											this.props.mergeout();
-											break;
+											setTimeout(()=>{
+												this.setState({...this.state, mergeDate:this.props.mergeDataState})
+												this.openModal();
+											},500)
+											
 
+											break;
 										default:
 											break;
 									}
 									this.handleCloseTargetDirDialog();
-								}}
-								color="primary"
-							>
+								}}>
 								{this.state.action}
 							</Button>
 						</DialogActions>
 					</Dialog>
 				</Popover>
+
+				<Modal 
+					open={this.state.modalOpen} 
+					onClose={this.closeModal}>
+					<div className={classes.modal}>
+						<ul className={classes.ul}>
+							{mergeData}
+						</ul>
+
+						<Button onClick={() => {
+							this.props.mergein();
+							this.closeModal();
+						}}>
+							Merge
+						</Button>
+					</div>
+				</Modal>
 			</div>
 		);
 	}
@@ -197,6 +278,6 @@ export default connect(mapStateToProps, {
 	checkout: checkout,
 	mergein: mergeIn,
 	mergeout: mergeOut,
-	updateCurrentTargetDirectory: updateCurrentTargetDirectory
-
+	updateCurrentTargetDirectory: updateCurrentTargetDirectory,
+	updateMergeData:updateMergeData
 })(withStyles(styles)(FloatingActionButtons));
