@@ -25,7 +25,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 // Project Modules
 import { IStoreStates } from '../statesManagement/Store';
 import { commit, checkin, checkout } from '../statesManagement/manifestsState/ManifestsActions';
-import { mergeIn, mergeOut, updateMergeData } from '../statesManagement/mergeDataState/MergeDataActions';
+import { mergeIn, mergeOut } from '../statesManagement/mergeDataState/MergeDataActions';
 import { updateCurrentTargetDirectory } from '../statesManagement/directoriesState/DirectoriesActions';
 
 
@@ -109,9 +109,8 @@ class FloatingActionButtons extends React.Component<any, any> {
 	};
 
 	handleMergeSelectChange = (event: any) => {
-		console.log('I want change')
-		this.props.updateMergeData(event.target.name,event.target.value);
-		//this.props.mergeDataState[event.target.name].choice = event.target.value;
+		this.props.mergeDataState[event.target.name].choice = event.target.value;
+		console.log(this.props.mergeDataState)
 	};
 
 	render() {
@@ -119,9 +118,9 @@ class FloatingActionButtons extends React.Component<any, any> {
 		const { anchorEl } = this.state;
 		const open = Boolean(anchorEl);
 
-		const mergeData = this.state.mergeDate.map((item: any, key: any) => {
+		const mergeData = this.props.mergeDataState.map((item: any, key: any) => {
 			var file = item.source;
-			
+
 			if (file) {
 				return (
 					<li key={key}>
@@ -133,8 +132,8 @@ class FloatingActionButtons extends React.Component<any, any> {
 								value={item.choice}
 								onChange={this.handleMergeSelectChange}>
 
-								<FormControlLabel value='Source' control={<Radio/>} label='Source'/>
-								<FormControlLabel value='Target' control={<Radio/>} label='Target'/>
+								<FormControlLabel value='Source' control={<Radio />} label='Source' />
+								<FormControlLabel value='Target' control={<Radio />} label='Target' />
 							</RadioGroup>
 						</FormControl>
 					</li>
@@ -144,11 +143,11 @@ class FloatingActionButtons extends React.Component<any, any> {
 
 		return (
 			<div>
-				<Fab 
-					color='secondary' 
-					className={classes.fab} 
+				<Fab
+					color='secondary'
+					className={classes.fab}
 					onClick={this.handleClick}>
-					<AddIcon/>
+					<AddIcon />
 				</Fab>
 
 				<Popover
@@ -207,7 +206,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 								fullWidth
 								onChange={(event) => {
 									this.setState({ targetDir: event.target.value });
-								}}/>
+								}} />
 						</DialogContent>
 						<DialogActions>
 							<Button onClick={this.handleCloseTargetDirDialog} color='primary'>
@@ -226,11 +225,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 											break;
 										case 'Merge':
 											this.props.mergeout();
-											setTimeout(()=>{
-												this.setState({...this.state, mergeDate:this.props.mergeDataState})
-												this.openModal();
-											},1000)
-											
+											this.openModal();
 
 											break;
 										default:
@@ -244,8 +239,8 @@ class FloatingActionButtons extends React.Component<any, any> {
 					</Dialog>
 				</Popover>
 
-				<Modal 
-					open={this.state.modalOpen} 
+				<Modal
+					open={this.state.modalOpen}
 					onClose={this.closeModal}>
 					<div className={classes.modal}>
 						<ul className={classes.ul}>
@@ -278,6 +273,5 @@ export default connect(mapStateToProps, {
 	checkout: checkout,
 	mergein: mergeIn,
 	mergeout: mergeOut,
-	updateCurrentTargetDirectory: updateCurrentTargetDirectory,
-	updateMergeData:updateMergeData
+	updateCurrentTargetDirectory: updateCurrentTargetDirectory
 })(withStyles(styles)(FloatingActionButtons));
