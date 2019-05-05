@@ -123,7 +123,7 @@ See the section about [deployment](https://facebook.github.io/create-react-app/d
 
 ### `npm install`
 
-Installs all the necessary libraries required to run the project. 
+Installs all the necessary dependencies required to run the project. 
 
 
 ### `npm run eject`
@@ -141,5 +141,10 @@ You don’t have to ever use `eject`. The curated feature set is suitable for sm
 You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
 
 To learn React, check out the [React documentation](https://reactjs.org/).
+
+## Install Material_UI using npm
+
+`npm install @material-ui/core`
+
 
 

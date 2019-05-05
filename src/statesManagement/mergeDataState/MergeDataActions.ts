@@ -12,7 +12,7 @@ export const mergeIn = () => {
 			.post('/mergein', {
 				sourceDirectory: getState().directoriesState.currentSourceDirectory,
 				targetDirectory: getState().directoriesState.currentTargetDirectory,
-				mergeData: getState().mergeDataState
+				mergeData: getState().mergeData
 			})
 			.then((response) => {
 				if (response.status === 200) {
@@ -50,3 +50,15 @@ export const mergeOut = () => {
 			});
 	};
 };
+export const updateMergeData = (index: number, choice:string)=>{
+	return (dispatch:Dispatch, getState:Function)=>{
+		let k = [getState().mergeData]
+		k[index].choice=choice
+		dispatch({
+			type: MergeDataActionType.UPDATE_MERGEDATA,
+			mergeData: k
+		});
+
+		console.log(getState().mergeData)
+	}
+}
