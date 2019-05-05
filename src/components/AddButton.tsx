@@ -124,10 +124,11 @@ class FloatingActionButtons extends React.Component<any, any> {
 			var file = item.source;
 
 			if (file) {
+				let displayName= (file.includes('/'))?file.substring(0, file.lastIndexOf('/')):file.substring(0, file.lastIndexOf('\\'))
 				return (
 					<li key={key}>
 						<FormControl className={classes.formControl}>
-							<FormLabel>MergeType: {item.mergeType} - {file.substring(0, file.lastIndexOf('/'))}</FormLabel>
+							<FormLabel>MergeType: {item.mergeType} - {displayName}</FormLabel>
 							<RadioGroup
 								name={key}
 								className={classes.group}
