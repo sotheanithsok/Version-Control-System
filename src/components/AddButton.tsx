@@ -1,19 +1,25 @@
+// React Project
 import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import Fab from '@material-ui/core/Fab';
-import AddIcon from '@material-ui/icons/Add';
-import { Modal, Button, List, Popover } from '@material-ui/core';
-import { IStoreStates } from '../statesManagement/Store';
 import { connect } from 'react-redux';
-import { commit, checkin, checkout } from '../statesManagement/manifestsState/ManifestsActions';
-import { mergeIn, mergeOut } from '../statesManagement/mergeDataState/MergeDataActions';
+
+// Material-ui Modules
+import { withStyles } from '@material-ui/core/styles';
+import AddIcon from '@material-ui/icons/Add';
+import Fab from '@material-ui/core/Fab';
+import Button from '@material-ui/core/Button';
+import List from '@material-ui/core/List';
+import Popover from '@material-ui/core/Popover';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import TextField from '@material-ui/core/TextField';
+
+// Project Modules
+import { IStoreStates } from '../statesManagement/Store';
+import { commit, checkin, checkout } from '../statesManagement/manifestsState/ManifestsActions';
+import { mergeIn, mergeOut } from '../statesManagement/mergeDataState/MergeDataActions';
 import { updateCurrentTargetDirectory } from '../statesManagement/directoriesState/DirectoriesActions';
 
 const styles = (theme: any) => ({
@@ -23,6 +29,7 @@ const styles = (theme: any) => ({
 		bottom: theme.spacing.unit,
 		right: theme.spacing.unit * 5
 	},
+
 	paper: {
 		position: '-webkit-sticky' as '-webkit-sticky',
 		width: theme.spacing.unit * 50,
@@ -36,6 +43,7 @@ const styles = (theme: any) => ({
 class FloatingActionButtons extends React.Component<any, any> {
 	constructor(props: any) {
 		super(props);
+
 		this.state = {
 			open: false,
 			anchoreEl: null,
@@ -43,7 +51,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 			action: '',
 			targetDir: ''
 		};
-	}
+	};
 
 	handleClick = (event: any) => {
 		this.setState({
@@ -69,13 +77,14 @@ class FloatingActionButtons extends React.Component<any, any> {
 		const { classes } = this.props;
 		const { anchorEl } = this.state;
 		const open = Boolean(anchorEl);
+
 		return (
 			<div>
-				<Fab color="secondary" aria-label="Add" className={classes.fab} onClick={this.handleClick}>
+				<Fab color='secondary' aria-label='Add' className={classes.fab} onClick={this.handleClick}>
 					<AddIcon />
 				</Fab>
 				<Popover
-					id="simple-popper"
+					id='simple-popper'
 					open={open}
 					anchorEl={anchorEl}
 					onClose={this.handleClose}
@@ -129,17 +138,17 @@ class FloatingActionButtons extends React.Component<any, any> {
 					<Dialog
 						open={this.state.openTargetDirDialog}
 						onClose={this.handleCloseTargetDirDialog}
-						aria-labelledby="form-dialog-title"
+						aria-labelledby='form-dialog-title'
 					>
-						<DialogTitle id="form-dialog-title">{this.state.action}</DialogTitle>
+						<DialogTitle id='form-dialog-title'>{this.state.action}</DialogTitle>
 						<DialogContent>
 							<DialogContentText>Please enter a target directory to:</DialogContentText>
 							<TextField
 								autoFocus
-								margin="dense"
-								id="name"
-								label="Target Directory"
-								type="text"
+								margin='dense'
+								id='name'
+								label='Target Directory'
+								type='text'
 								fullWidth
 								onChange={(event) => {
 									this.setState({ targetDir: event.target.value });
@@ -147,7 +156,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 							/>
 						</DialogContent>
 						<DialogActions>
-							<Button onClick={this.handleCloseTargetDirDialog} color="primary">
+							<Button onClick={this.handleCloseTargetDirDialog} color='primary'>
 								Cancel
 							</Button>
 							<Button
@@ -172,7 +181,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 									}
 									this.handleCloseTargetDirDialog();
 								}}
-								color="primary"
+								color='primary'
 							>
 								{this.state.action}
 							</Button>
