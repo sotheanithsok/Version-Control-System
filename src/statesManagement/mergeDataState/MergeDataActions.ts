@@ -6,13 +6,13 @@ const instance = Axios.create({
 	baseURL: 'http://localhost:3001/',
 	timeout: 10000
 });
-export const mergeIn = (sourceDirectory: string, targetDirectory: string, mergeData: IMergeDataState) => {
+export const mergeIn = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		instance
 			.post('/mergein', {
-				sourceDirectory: sourceDirectory,
-				targetDirectory: targetDirectory,
-				mergeData: mergeData
+				sourceDirectory: getState().directoriesState.currentSourceDirectory,
+				targetDirectory: getState().directoriesState.currentTargetDirectory,
+				mergeData: getState().mergeDataState
 			})
 			.then((response) => {
 				if (response.status === 200) {
@@ -28,15 +28,17 @@ export const mergeIn = (sourceDirectory: string, targetDirectory: string, mergeD
 	};
 };
 
-export const mergeOut = (sourceDirectory: string, targetDirectory: string) => {
+export const mergeOut = () => {
 	return (dispatch: Dispatch, getState: Function) => {
 		instance
 			.post('/mergeout', {
-				sourceDirectory: sourceDirectory,
-				targetDirectory: targetDirectory
+				sourceDirectory: getState().directoriesState.currentSourceDirectory,
+				targetDirectory: getState().directoriesState.currentTargetDirectory
 			})
 			.then((response) => {
+				console.log(response);
 				if (response.status === 200) {
+					console.log(response.data);
 					dispatch({
 						type: MergeDataActionType.UPDATE_MERGEDATA,
 						mergeData: response.data
