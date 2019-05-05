@@ -12,7 +12,9 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import FolderIcon from '@material-ui/icons/Folder';
 import spacing from '@material-ui/core/styles/spacing';
+import { any } from 'prop-types';
 
+<<<<<<< Updated upstream
 const styles = (theme: { palette: { background: { paper: any } } }) => ({
 	root: {
 		width: '100%',
@@ -25,9 +27,27 @@ const styles = (theme: { palette: { background: { paper: any } } }) => ({
 	fullList: {
 		width: 'auto'
 	}
+=======
+
+
+
+const styles = (theme: { palette: { background: { paper: any; }; }; }) => ({
+    root: {
+        width: '100%',
+        maxWidth: 240,
+        backgroundColor: theme.palette.background.paper,
+    },
+    list: {
+        width: spacing.unit * 75
+    },
+    fullList: {
+        width: "auto"
+    },
+>>>>>>> Stashed changes
 });
 
 class ManiList extends React.Component<any, any> {
+<<<<<<< Updated upstream
 	constructor(props: any) {
 		super(props);
 		this.state = {
@@ -136,3 +156,119 @@ const mapStateToProps = (store: IStoreStates) => {
 export default connect(mapStateToProps, {
 	updateLabel: updateLabel
 })(withStyles(styles)(ManiList));
+=======
+    constructor(props: any) {
+        super(props);
+        this.state =
+            {
+                side: null,
+                artifacts: []
+            }
+    }
+
+    toggleDrawer = (side: any, open: any) => () => {
+        this.setState({
+            [side]: open,
+
+        });
+    };
+
+
+    createList(elementID: any) {
+
+        return (this.toggleDrawer("right", true))
+    };
+
+
+    render() {
+
+        const manifests = this.props.manifestState
+
+        const { classes } = this.props;
+
+
+        let manifestList = manifests.map((element: any) => {
+
+            if (element.tag === null) {
+                permanifestArtList(element.values)
+                return (<ListItem button key={element.id} onClick={this.createList(element)}>{element.id}
+                </ListItem>)
+            }
+            else {
+                return (<ListItem button key={element.id} onClick={this.toggleDrawer("right", true)}>{element.tag}</ListItem>)
+            }
+        });
+
+
+
+        
+        function permanifestArtList(element:){
+
+            let  artList = [];
+            for (let artifact in element)
+                {
+                    artList.push(artifact) 
+                }
+              
+            return artList;
+            
+        };
+    
+
+        const sideList = (
+            <div className={classes.list}>
+
+                <List>
+                    <ListItem button>
+                        <ListItemIcon>
+                            <FolderIcon/>
+                        </ListItemIcon>
+                        <ListItemText primary= {permanifestArtList(this.props)} />
+                    </ListItem>
+                </List>
+            
+                <Divider />
+
+            </div>
+        );
+
+
+
+        return (
+            <div>
+                <List className={classes.root} >
+                    {manifestList}
+                </List>
+                <SwipeableDrawer
+                    anchor="right"
+                    open={this.state.right}
+                    onClose={this.toggleDrawer("right", false)}
+                    onOpen={this.toggleDrawer("right", true)}
+                >
+                    <div
+                        tabIndex={0}
+                        role="button"
+                        onClick={this.toggleDrawer("right", false)}
+                        onKeyDown={this.toggleDrawer("right", false)}
+                    >
+                        {sideList}
+                    </div>
+
+                </SwipeableDrawer>
+            </div >
+
+        )
+    }
+}
+
+
+    const mapStateToProps = (store: IStoreStates) => {
+        return {
+            manifestState: store.manifestsState
+        }
+    }
+
+    export default connect(mapStateToProps, {
+        updateLabel: updateLabel,
+    })(withStyles(styles)(ManiList));
+>>>>>>> Stashed changes
