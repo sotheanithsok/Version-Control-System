@@ -108,10 +108,11 @@ class FloatingActionButtons extends React.Component<any, any> {
 		this.setState({ openTargetDirDialog: false });
 	};
 
+
 	handleMergeSelectChange = (event: any) => {
 		console.log('I want change')
-		this.props.updateMergeData(event.target.name,event.target.value);
-		//this.props.mergeDataState[event.target.name].choice = event.target.value;
+		//this.props.updateMergeData(event.target.name,event.target.value);
+		this.props.mergeDataState[event.target.name].choice = event.target.value;
 	};
 
 	render() {
