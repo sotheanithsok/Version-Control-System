@@ -52,13 +52,12 @@ export const mergeOut = () => {
 };
 export const updateMergeData = (index: number, choice:string)=>{
 	return (dispatch:Dispatch, getState:Function)=>{
-		let k = [getState().mergeData]
+		let k = [getState().mergeDataState]
 		k[index].choice=choice
 		dispatch({
 			type: MergeDataActionType.UPDATE_MERGEDATA,
 			mergeData: k
 		});
 
-		console.log(getState().mergeData)
 	}
 }
