@@ -50,3 +50,13 @@ export const mergeOut = () => {
 			});
 	};
 };
+
+
+export const clearMergeData = () => {
+	return (dispatch: Dispatch, getState: Function) => {
+		dispatch({
+			type: MergeDataActionType.UPDATE_MERGEDATA,
+			mergeData: []
+		});
+	};
+};
