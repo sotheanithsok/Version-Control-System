@@ -80,9 +80,13 @@ class FloatingActionButtons extends React.Component<any, any> {
 
 		return (
 			<div>
-				<Fab color='secondary' aria-label='Add' className={classes.fab} onClick={this.handleClick}>
-					<AddIcon />
+				<Fab 
+					color='secondary' 
+					className={classes.fab} 
+					onClick={this.handleClick}>
+					<AddIcon/>
 				</Fab>
+
 				<Popover
 					id='simple-popper'
 					open={open}
@@ -95,8 +99,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 					transformOrigin={{
 						vertical: 'top',
 						horizontal: 'center'
-					}}
-				>
+					}}>
 					<div>
 						<List>
 							<Button onClick={this.props.commit}>Commit</Button>
@@ -104,33 +107,22 @@ class FloatingActionButtons extends React.Component<any, any> {
 								onClick={() => {
 									this.setState({ action: 'Checkin' });
 									this.handleClickOpenTargetDirDialog();
-								}}
-							>
+								}}>
 								CheckIn
 							</Button>
 							<Button
 								onClick={() => {
 									this.setState({ action: 'Checkout' });
 									this.handleClickOpenTargetDirDialog();
-								}}
-							>
+								}}>
 								CheckOut
 							</Button>
 							<Button
 								onClick={() => {
-									this.setState({ action: 'MergeIn' });
+									this.setState({ action: 'Merge' });
 									this.handleClickOpenTargetDirDialog();
-								}}
-							>
-								MergeIn
-							</Button>
-							<Button
-								onClick={() => {
-									this.setState({ action: 'MergeOut' });
-									this.handleClickOpenTargetDirDialog();
-								}}
-							>
-								MergeOut
+								}}>
+								Merge
 							</Button>
 						</List>
 					</div>
@@ -138,8 +130,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 					<Dialog
 						open={this.state.openTargetDirDialog}
 						onClose={this.handleCloseTargetDirDialog}
-						aria-labelledby='form-dialog-title'
-					>
+						aria-labelledby='form-dialog-title'>
 						<DialogTitle id='form-dialog-title'>{this.state.action}</DialogTitle>
 						<DialogContent>
 							<DialogContentText>Please enter a target directory to:</DialogContentText>
@@ -152,14 +143,14 @@ class FloatingActionButtons extends React.Component<any, any> {
 								fullWidth
 								onChange={(event) => {
 									this.setState({ targetDir: event.target.value });
-								}}
-							/>
+								}}/>
 						</DialogContent>
 						<DialogActions>
 							<Button onClick={this.handleCloseTargetDirDialog} color='primary'>
 								Cancel
 							</Button>
 							<Button
+								color='primary'
 								onClick={(event) => {
 									this.props.updateCurrentTargetDirectory(this.state.targetDir);
 									switch (this.state.action) {
@@ -169,25 +160,22 @@ class FloatingActionButtons extends React.Component<any, any> {
 										case 'Checkout':
 											this.props.checkout();
 											break;
-										case 'MergeIn':
-											this.props.mergein();
-											break;
-										case 'MergeOut':
+										case 'Merge':
 											this.props.mergeout();
-											break;
 
+											break;
 										default:
 											break;
 									}
 									this.handleCloseTargetDirDialog();
-								}}
-								color='primary'
-							>
+								}}>
 								{this.state.action}
 							</Button>
 						</DialogActions>
 					</Dialog>
 				</Popover>
+
+				{this.props.mergeDataState}
 			</div>
 		);
 	}
