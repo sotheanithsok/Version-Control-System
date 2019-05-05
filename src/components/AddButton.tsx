@@ -25,7 +25,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 // Project Modules
 import { IStoreStates } from '../statesManagement/Store';
 import { commit, checkin, checkout } from '../statesManagement/manifestsState/ManifestsActions';
-import { mergeIn, mergeOut } from '../statesManagement/mergeDataState/MergeDataActions';
+import { mergeIn, mergeOut, updateMergeData } from '../statesManagement/mergeDataState/MergeDataActions';
 import { updateCurrentTargetDirectory } from '../statesManagement/directoriesState/DirectoriesActions';
 
 const styles = (theme: any) => ({
@@ -76,7 +76,8 @@ class FloatingActionButtons extends React.Component<any, any> {
 			anchoreEl: null,
 			openTargetDirDialog: false,
 			action: '',
-			targetDir: ''
+			targetDir: '',
+			mergeDate: []
 		};
 	};
 
@@ -107,8 +108,9 @@ class FloatingActionButtons extends React.Component<any, any> {
 	};
 
 	handleMergeSelectChange = (event: any) => {
-		console.log(this.props.mergeDataState);
-		this.props.mergeDataState[event.target.name].choice = event.target.value;
+		console.log('I want change')
+		this.props.updateMergeData(event.target.name,event.target.value);
+		//this.props.mergeDataState[event.target.name].choice = event.target.value;
 	};
 
 	render() {
@@ -116,7 +118,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 		const { anchorEl } = this.state;
 		const open = Boolean(anchorEl);
 
-		const mergeData = this.props.mergeDataState.map((item: any, key: any) => {
+		const mergeData = this.state.mergeDate.map((item: any, key: any) => {
 			var file = item.source;
 			
 			if (file) {
@@ -223,7 +225,11 @@ class FloatingActionButtons extends React.Component<any, any> {
 											break;
 										case 'Merge':
 											this.props.mergeout();
-											this.openModal();
+											setTimeout(()=>{
+												this.setState({...this.state, mergeDate:this.props.mergeDataState})
+												this.openModal();
+											},500)
+											
 
 											break;
 										default:
@@ -246,7 +252,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 						</ul>
 
 						<Button onClick={() => {
-							this.props.mergein(this.props.mergeDataState);
+							this.props.mergein();
 							this.closeModal();
 						}}>
 							Merge
@@ -271,5 +277,6 @@ export default connect(mapStateToProps, {
 	checkout: checkout,
 	mergein: mergeIn,
 	mergeout: mergeOut,
-	updateCurrentTargetDirectory: updateCurrentTargetDirectory
+	updateCurrentTargetDirectory: updateCurrentTargetDirectory,
+	updateMergeData:updateMergeData
 })(withStyles(styles)(FloatingActionButtons));
