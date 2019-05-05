@@ -121,7 +121,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 		const open = Boolean(anchorEl);
 
 		const mergeData = this.props.mergeDataState.map((item: any, key: any) => {
-			var file = item.source;
+			var file = (item.source!==null)?item.source:item.target;
 
 			if (file) {
 				let displayName= (file.includes('/'))?file.substring(0, file.lastIndexOf('/')):file.substring(0, file.lastIndexOf('\\'))
