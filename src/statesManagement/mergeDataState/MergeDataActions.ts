@@ -3,7 +3,7 @@ import Axios from 'axios';
 import { Dispatch } from 'redux';
 
 const instance = Axios.create({
-	baseURL: 'http://localhost:3001/',
+	baseURL: 'http://localhost:3002/',
 	timeout: 10000
 });
 export const mergeIn = () => {
