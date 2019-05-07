@@ -30,7 +30,7 @@ export const mergeIn = () => {
 	};
 };
 
-export const mergeOut = () => {
+export const mergeOut = (pleaseOpenModal:Function) => {
 	return (dispatch: Dispatch, getState: Function) => {
 		instance
 			.post('/mergeout', {
@@ -38,13 +38,12 @@ export const mergeOut = () => {
 				targetDirectory: getState().directoriesState.currentTargetDirectory
 			})
 			.then((response) => {
-				console.log(response);
 				if (response.status === 200) {
-					console.log(response.data);
 					dispatch({
 						type: MergeDataActionType.UPDATE_MERGEDATA,
 						mergeData: response.data
 					});
+					pleaseOpenModal()
 				}
 			})
 			.catch((err) => {
@@ -53,12 +52,13 @@ export const mergeOut = () => {
 	};
 };
 
-
-export const clearMergeData = () => {
+export const updateMergeData=(index:number, value:string)=>{
 	return (dispatch: Dispatch, getState: Function) => {
+		let k = JSON.parse(JSON.stringify(getState().mergeDataState));
+		k[index].choice=value;
 		dispatch({
 			type: MergeDataActionType.UPDATE_MERGEDATA,
-			mergeData: []
+			mergeData: k
 		});
 	};
-};
+}

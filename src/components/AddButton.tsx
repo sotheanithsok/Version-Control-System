@@ -25,7 +25,7 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 // Project Modules
 import { IStoreStates } from '../statesManagement/Store';
 import { commit, checkin, checkout } from '../statesManagement/manifestsState/ManifestsActions';
-import { mergeIn, mergeOut, clearMergeData } from '../statesManagement/mergeDataState/MergeDataActions';
+import { mergeIn, mergeOut,updateMergeData } from '../statesManagement/mergeDataState/MergeDataActions';
 import { updateCurrentTargetDirectory } from '../statesManagement/directoriesState/DirectoriesActions';
 
 
@@ -77,18 +77,21 @@ class FloatingActionButtons extends React.Component<any, any> {
 			anchoreEl: null,
 			openTargetDirDialog: false,
 			action: '',
-			targetDir: '',
-			mergeDate: []
+			targetDir: ''
 		};
 	};
 
 	openModal = () => {
-		this.setState({ modalOpen: true });
+		let pleaseOpenModal = ()=>{
+			this.setState({ modalOpen: true});
+		}
+		this.props.mergeout(pleaseOpenModal);
+		
+		
 	};
 
 	closeModal = () => {
 		this.setState({ modalOpen: false });
-		this.props.clearMergeData()
 	};
 
 	handleClick = (event: any) => {
@@ -111,8 +114,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 
 
 	handleMergeSelectChange = (event: any) => {
-		this.props.mergeDataState[event.target.name].choice = event.target.value;
-		console.log(this.props.mergeDataState)
+		this.props.updateMergeData(parseInt(event.target.name,10),event.target.value)
 	};
 
 	render() {
@@ -130,13 +132,13 @@ class FloatingActionButtons extends React.Component<any, any> {
 						<FormControl className={classes.formControl}>
 							<FormLabel>MergeType: {item.mergeType} - {displayName}</FormLabel>
 							<RadioGroup
-								name={key}
+								name={key.toString()}
 								className={classes.group}
 								value={item.choice}
 								onChange={this.handleMergeSelectChange}>
 
-								<FormControlLabel value='Source' disabled={item.choice==="Target"} control={<Radio />} label='Source' />
-								<FormControlLabel value='Target' disabled={item.choice==="Source"} control={<Radio />} label='Target' />
+								<FormControlLabel value='Source'  control={<Radio />} label='Source' />
+								<FormControlLabel value='Target'  control={<Radio />} label='Target' />
 							</RadioGroup>
 						</FormControl>
 					</li>
@@ -227,7 +229,7 @@ class FloatingActionButtons extends React.Component<any, any> {
 											this.props.checkout();
 											break;
 										case 'Merge':
-											this.props.mergeout();
+											
 											this.openModal();
 
 											break;
@@ -277,5 +279,5 @@ export default connect(mapStateToProps, {
 	mergein: mergeIn,
 	mergeout: mergeOut,
 	updateCurrentTargetDirectory: updateCurrentTargetDirectory,
-	clearMergeData:clearMergeData
+	updateMergeData:updateMergeData
 })(withStyles(styles)(FloatingActionButtons));
