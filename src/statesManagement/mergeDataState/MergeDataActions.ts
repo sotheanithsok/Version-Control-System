@@ -54,11 +54,10 @@ export const mergeOut = (pleaseOpenModal:Function) => {
 
 export const updateMergeData=(index:number, value:string)=>{
 	return (dispatch: Dispatch, getState: Function) => {
-		let k = JSON.parse(JSON.stringify(getState().mergeDataState));
-		k[index].choice=value;
+		let k = getState().mergeDataState;
 		dispatch({
 			type: MergeDataActionType.UPDATE_MERGEDATA,
-			mergeData: k
+			mergeData: [...k.slice(0,index),{...k[index],choice:value} , ...k.slice(index+1)]
 		});
 	};
 }
