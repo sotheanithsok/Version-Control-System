@@ -10,7 +10,7 @@ const MergeModal = forwardRef<MergeModalHandle, MergeModalProps>((props, ref) =>
 	const closeModal = () => {
 		updateIsShow(false);
 	};
-
+	
 	useImperativeHandle(ref, () => ({
 		showModal,
 		closeModal

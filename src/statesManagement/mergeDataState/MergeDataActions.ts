@@ -1,9 +1,10 @@
 import { MergeDataActionType, IMergeDataState } from './MergeDataTypes';
 import Axios from 'axios';
 import { Dispatch } from 'redux';
+import { getAllManifests } from '../manifestsState/ManifestsActions';
 
 const instance = Axios.create({
-	baseURL: 'http://localhost:3001/',
+	baseURL: 'http://localhost:3000/',
 	timeout: 10000
 });
 export const mergeIn = () => {
@@ -20,6 +21,7 @@ export const mergeIn = () => {
 						type: MergeDataActionType.UPDATE_MERGEDATA,
 						mergeData: []
 					});
+					getAllManifests()(dispatch,getState);
 				}
 			})
 			.catch((err) => {
@@ -48,5 +50,15 @@ export const mergeOut = () => {
 			.catch((err) => {
 				console.log(err);
 			});
+	};
+};
+
+
+export const clearMergeData = () => {
+	return (dispatch: Dispatch, getState: Function) => {
+		dispatch({
+			type: MergeDataActionType.UPDATE_MERGEDATA,
+			mergeData: []
+		});
 	};
 };
