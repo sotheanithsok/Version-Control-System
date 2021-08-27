@@ -17,6 +17,9 @@ This is the second iteration of the version control system build by Team PSA. Th
  - [Browserify](https://browserify.org/)
  - [Check-Types](https://www.npmjs.com/package/check-types)
  - [Requests](https://www.npmjs.com/package/request)
+ - [React JS](https://reactjs.org/)
+ - [Redux](https://redux.js.org/)
+ - [Material UI](https://material-ui.com/)
  
 ## Authors
  - [Sotheanith Sok](https://github.com/sotheanith)
