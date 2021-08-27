@@ -1,29 +1,36 @@
-# CECS 543 - Project: Version Control System
+<h1 align="center" style="border: none">Version-Control-System</h1>
 
-## Team PSA
-- Sotheanith Sok
-- Anthony Martinez
-- Chandandeep Thind 
-- Prateechi Singh
-- Yashua Ovando
+## Overview
+This is the second iteration of the version control system build by Team PSA. The goal of this iteration is to build upon the strong foundation used in the first iteration. As such, the current version of this system now offers users the ability to create a new repository, commit changes to a repository, check-in any changes made from external folders, check-out changes to an external folder, and label manifest files in repositories using unique identifiers. The new product offers a greater user experience in order to interact with the system. 
 
-## Intro
-This is the second iteration of the version control system build by Team PSA. The goal of this iteration is to build upon the strong foundation used in the first iteration. As such, the current version of this system now offers users the ability to create a new repository, commit changes to a repository, check-in any changes made from external folders, check-out changes to an external folder, and label manifest files in repositories using unique identifiers. The new product offers a greater user experience in order to interact with the system.  
+## Features
+  - Create a new repository
+  - Commit a new iteration to the repository
+  - Branching system
+  - Collaboration system
+  - Contribution history of collaborators
+  - Support for different file formats
 
-### External Requirements:
-- Node JS (10.15.1)
-- Express (4.16.4) 
-- Browserify (16.2.3)
-- Check-Types(8.0.2)
-- Requests(2.88.0)
+## Prerequisites
+ - [Node JS](https://nodejs.org/en/)
+ - [Express ](https://expressjs.com/)
+ - [Browserify](https://browserify.org/)
+ - [Check-Types](https://www.npmjs.com/package/check-types)
+ - [Requests](https://www.npmjs.com/package/request)
+ 
+## Authors
+ - [Sotheanith Sok](https://github.com/sotheanith)
+ - [Anthony Martinez](https://github.com/Anthony1234567)
+ - [Chandandeep Thind](https://github.com/DeepThind)
+ - [Prateechi Singh](https://github.com/Prateechi)
+ - [Yashua Ovando](https://github.com/ydovando)
 
-
-### Setup and Installation:
+## Setup and Installation
 1. Manually install Node JS
 2. Run “npm install” to install all necessary dependencies
 3. Run “node index.js” to start the application
 
-### Sample Invocation and Results
+## Sample Invocation and Results
 - Invocation 1 - Initialize the project and open repository
   -  Start the application by running “node inde.js” from a command line
   -  Open your favorite browsers
@@ -75,76 +82,7 @@ This is the second iteration of the version control system build by Team PSA. Th
   - Press “Open folder”
   - Press the “fas fa-pen” button next to the manifest that you want to edit its tag
   - Provide a new tag in the field provided
-- Invocation 5 - Result: A manifest will be updated to its new label.  
+- Invocation 5 - Result: A manifest will be updated to its new label.
 
-# Included
-  - Create a new repository
-  - Commit a new iteration to the repository
-  - Branching system
-  - Collaboration system
-  - Contribution history of collaborators
-  - Support for different file formats
-
-
-## Known Issues
-None
-
-
-
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
-
-## Available Scripts
-
-In the project directory, you can run:
-
-### `npm start`
-
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-
-### `npm install`
-
-Installs all the necessary dependencies required to run the project. 
-
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-## Install Material_UI using npm
-
-`npm install @material-ui/core`
-
-
-
+## Course
+ - [CECS 543 - Advanced Software Engineering](http://catalog.csulb.edu/preview_course_nopop.php?catoid=5&coid=40035)
