@@ -22,7 +22,7 @@ This is the second iteration of the version control system build by Team PSA. Th
  - [Material UI](https://material-ui.com/)
  
 ## Authors
- - [Sotheanith Sok](https://github.com/sotheanith)
+ - [Sotheanith Sok](https://github.com/sotheanith-sok)
  - [Anthony Martinez](https://github.com/Anthony1234567)
  - [Chandandeep Thind](https://github.com/DeepThind)
  - [Prateechi Singh](https://github.com/Prateechi)
