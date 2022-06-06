@@ -1,39 +1,59 @@
-<h1 align="center" style="border: none">Version-Control-System</h1>
+<!-- Readme Start here -->
 
-## Overview
-This is the second iteration of the version control system build by Team PSA. The goal of this iteration is to build upon the strong foundation used in the first iteration. As such, the current version of this system now offers users the ability to create a new repository, commit changes to a repository, check-in any changes made from external folders, check-out changes to an external folder, and label manifest files in repositories using unique identifiers. The new product offers a greater user experience in order to interact with the system. 
+<!-- Load logo from readme/logo.jpg -->
+<div align="center">
+  <img src="readme/logo.jpg" alt="logo" />
+</div>
+
+
+<!-- Title -->
+<h1 align="center" style="border: none">
+Version Control System
+</h1>
+
+
+<!-- Shield IO - very nice icons -->
+<div align="center">
+
+[![Contributors][contributors_shield]][contributors_url]
+[![Forks][forks_shield]][forks_url]
+[![Stargazers][stars_shield]][stars_url]
+[![Issues][issues_shield]][issues_url]
+[![MIT License][license_shield]][license_url]
+[![LinkedIn][linkedin_shield]][linkedin_url]
+
+</div>
+
+
+<!-- Description -->
+This is the second iteration of the version control system build by Team PSA. The goal of this iteration is to build upon the strong foundation used in the first iteration. As such, the current version of this system now offers users the ability to create a new repository, commit changes to a repository, check-in any changes made from external folders, check-out changes to an external folder, and label manifest files in repositories using unique identifiers. The new product offers a greater user experience in order to interact with the system.
+
+## Getting Started
+1. Manually install NodeJS
+2. Clone repository
+```sh
+git clone https://github.com/sotheanithsok/Version-Control-System
+```
+
+3. Install all necessary dependencies
+```sh
+npm install
+```
+
+4. Start the application
+```sh
+node index.js
+```
 
 ## Features
-  - Create a new repository
-  - Commit a new iteration to the repository
-  - Branching system
-  - Collaboration system
-  - Contribution history of collaborators
-  - Support for different file formats
+- Create a new repository
+- Commit a new iteration to the repository
+- Branching system
+- Collaboration system
+- Contribution history of collaborators
+- Support for different file formats
 
-## Prerequisites
- - [Node JS](https://nodejs.org/en/)
- - [Express ](https://expressjs.com/)
- - [Browserify](https://browserify.org/)
- - [Check-Types](https://www.npmjs.com/package/check-types)
- - [Requests](https://www.npmjs.com/package/request)
- - [React JS](https://reactjs.org/)
- - [Redux](https://redux.js.org/)
- - [Material UI](https://material-ui.com/)
- 
-## Authors
- - [Sotheanith Sok](https://github.com/sotheanith-sok)
- - [Anthony Martinez](https://github.com/Anthony1234567)
- - [Chandandeep Thind](https://github.com/DeepThind)
- - [Prateechi Singh](https://github.com/Prateechi)
- - [Yashua Ovando](https://github.com/ydovando)
-
-## Setup and Installation
-1. Manually install Node JS
-2. Run “npm install” to install all necessary dependencies
-3. Run “node index.js” to start the application
-
-## Sample Invocation and Results
+## Sample Invocation
 - Invocation 1 - Initialize the project and open repository
   -  Start the application by running “node inde.js” from a command line
   -  Open your favorite browsers
@@ -87,5 +107,69 @@ This is the second iteration of the version control system build by Team PSA. Th
   - Provide a new tag in the field provided
 - Invocation 5 - Result: A manifest will be updated to its new label.
 
+<!-- Include your major tools and frameworks -->
+## Built With
+- [Javascript]
+- [NodeJS]
+- [React JS]
+- [Material UI]
+
+
+<!-- Collaborators information -->
+## Collaborators
+- [Sotheanith Sok]
+- [Anthony Martinez]
+- [Chandandeep Thind]
+- [Prateechi Singh]
+- [Yashua Ovando]
+
 ## Course
- - [CECS 543 - Advanced Software Engineering](http://catalog.csulb.edu/preview_course_nopop.php?catoid=5&coid=40035)
+- [CECS 543 - Advanced Software Engineering]
+
+
+<!-- License -->
+## License
+This project is licensed under the MIT License - see the [LICENSE.md][license_url] file for details
+
+
+<!-- Shoutout to other projects, plugin, or minor tools -->
+## Acknowledgments
+Special thank to
+- [Best-README-Template] - the readme template.
+
+
+<!-- References -->
+<!-- Shield Icons-->
+[contributors_shield]: https://img.shields.io/github/contributors/sotheanithsok/Version-Control-System.svg?style=for-the-badge
+[forks_shield]: https://img.shields.io/github/forks/sotheanithsok/Version-Control-System.svg?style=for-the-badge
+[stars_shield]: https://img.shields.io/github/stars/sotheanithsok/Version-Control-System.svg?style=for-the-badge
+[issues_shield]: https://img.shields.io/github/issues/sotheanithsok/Version-Control-System.svg?style=for-the-badge
+[license_shield]: https://img.shields.io/github/license/sotheanithsok/Version-Control-System.svg?style=for-the-badge
+[linkedin_shield]: https://img.shields.io/badge/-LinkedIn-black.svg?style=for-the-badge&logo=linkedin&colorB=555
+
+<!-- Shield URLs -->
+[contributors_url]: https://github.com/sotheanithsok/Version-Control-System/graphs/contributors
+[forks_url]: https://github.com/sotheanithsok/Version-Control-System/network/members
+[stars_url]: https://github.com/sotheanithsok/Version-Control-System/stargazers
+[issues_url]: https://github.com/sotheanithsok/Version-Control-System/issues
+[license_url]: https://github.com/sotheanithsok/Version-Control-System/blob/master/LICENSE
+[linkedin_url]: https://www.linkedin.com/in/sotheanith-sok-969ab0b3/
+
+<!-- Other links -->
+[Sotheanith Sok]: https://github.com/sotheanithsok
+[Best-README-Template]: https://github.com/othneildrew/Best-README-Template
+
+[Javascript]: https://www.javascript.com/
+[NodeJS]: https://nodejs.org/en/
+[React JS]: https://reactjs.org/
+[Material UI]: https://material-ui.com/
+
+
+
+[Anthony Martinez]: https://github.com/Anthony1234567
+[Chandandeep Thind]: https://github.com/DeepThind
+[Prateechi Singh]: https://github.com/Prateechi
+[Yashua Ovando]: https://github.com/ydovando
+
+[CECS 543 - Advanced Software Engineering]:http://catalog.csulb.edu/preview_course_nopop.php?catoid=5&coid=40035
+
